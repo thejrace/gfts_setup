@@ -1,5 +1,13 @@
-/* Gitaş - Obarey Inc 2018 */
-package gpts_setup;
+/*
+ *  Gitas Fleet Tracking System Setup 2019
+ *
+ *  Contributors:
+ *      - Ahmet Ziya Kanbur
+ *
+ */
+package utils;
+
+import interfaces.ActionCallback;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

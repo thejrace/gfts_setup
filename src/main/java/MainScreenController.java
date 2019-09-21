@@ -33,7 +33,9 @@ public class MainScreenController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
+        uiInstallBtn.setOnMouseClicked( ev -> {
 
+        });
 
     }
 

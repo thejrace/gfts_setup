@@ -142,10 +142,16 @@ public class Common {
         return sb.toString();
     }
 
-
-    public static String readJSONData( String src ){
+    /**
+     * Reads a json file
+     *
+     * @param src file to be read
+     *
+     * @return data as string
+     */
+    public static String readJSONFile( File src ){
         try {
-            FileReader fr = new FileReader( src);
+            FileReader fr = new FileReader( src );
             BufferedReader br = new BufferedReader(fr);
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();

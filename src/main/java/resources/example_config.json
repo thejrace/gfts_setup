@@ -1,0 +1,6 @@
+{
+  "base_api": [
+    "http://gitas_api.test/api/",
+    "http://gitfilo.com/api"
+  ]
+}

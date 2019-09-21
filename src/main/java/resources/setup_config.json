@@ -1,0 +1,6 @@
+{
+  "api_urls":[
+    "http://gitas_api.test/api/fts/setup",
+    "http://gitfilo.com/api/fts/setup"
+  ]
+}
