@@ -13,6 +13,8 @@ import utils.APIRequest;
 import utils.Common;
 import utils.FileDownload;
 
+import java.io.File;
+
 public class Setup extends ActionCommon{
 
     /**
@@ -72,7 +74,10 @@ public class Setup extends ActionCommon{
                     });
                     setStatusProp("Yapılandırma dosyaları oluşturuluyor");
                     if( !Common.checkFile(  installPath + "app_config.json"  ) ){
-                        if( !Common.createFile(  installPath + "app_config", "{ \"init\" : true, \"installDir\":\""+installPath+"\" }" ) ){
+                        JSONObject appConfig = SharedConfig.DATA.getJSONObject("app_config");
+                        appConfig.put("init", true);
+                        appConfig.put("installDir", installPath);
+                        if( !Common.createFile(  installPath + "app_config", appConfig.toString() ) ){
                             setStatusProp("app_config.json oluşturulamadı.");
                             callback.error("");
                             return;
