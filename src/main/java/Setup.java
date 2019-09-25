@@ -61,7 +61,7 @@ public class Setup extends ActionCommon{
                         }
                     });
                     setStatusProp("Yardımcı dosyalar indiriliyor..");
-                    FileDownload.downloadFileFromUrl(setupData.getString("helper_download_url"), installPath + "gfts_update_helper.jar", new ActionCallback() {
+                    FileDownload.downloadFileFromUrl(setupData.getString("helper_download_url"), installPath + "fts_update_helper.jar", new ActionCallback() {
                         @Override
                         public void success(String msg) {
                             setStatusProp("Yardımcı dosyalar indirildi!");
@@ -77,6 +77,7 @@ public class Setup extends ActionCommon{
                         JSONObject appConfig = SharedConfig.DATA.getJSONObject("app_config");
                         appConfig.put("init", true);
                         appConfig.put("installDir", installPath);
+                        appConfig.put("download_url", setupData.getString("download_url"));
                         if( !Common.createFile(  installPath + "app_config", appConfig.toString() ) ){
                             setStatusProp("app_config.json oluşturulamadı.");
                             callback.error("");
