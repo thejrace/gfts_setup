@@ -32,23 +32,88 @@ public class MainScreenController implements Initializable {
     @FXML
     private Label uiUninstallNotf;
 
+    /**
+     * Initialize UI actions
+     *
+     * @param location
+     * @param resources
+     */
     public void initialize(URL location, ResourceBundle resources) {
-
+        // install action
         uiInstallBtn.setOnMouseClicked( ev -> {
-            Setup setup = new Setup(uiStaticDirPrefixInput.getText());
-            setup.action(new ActionCallback() {
-                @Override
-                public void success(String msg) {
+            String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
+            if( !staticPrefixDirValue.equals("") ) {
+                disableInputs();
+                refreshNotfs();
+                Setup setup = new Setup(staticPrefixDirValue);
+                uiInstallNotf.textProperty().bind(setup.getStatusProp());
+                setup.action(new ActionCallback() {
+                    @Override
+                    public void success(String msg) {
+                        enableInputs();
+                    }
+                    @Override
+                    public void error(String msg) {
+                        enableInputs();
+                    }
+                });
+            }
 
-                }
-
-                @Override
-                public void error(String msg) {
-
-                }
-            });
         });
 
+        // uninstall action
+        uiUninstallBtn.setOnMouseClicked( ev -> {
+            String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
+            if( !staticPrefixDirValue.equals("") ){
+                disableInputs();
+                refreshNotfs();
+                Uninstall uninstall = new Uninstall();
+                uiUninstallNotf.textProperty().bind(uninstall.getStatusProp());
+                uninstall.action(staticPrefixDirValue, new ActionCallback() {
+                    @Override
+                    public void success(String msg) {
+                        enableInputs();
+                    }
+                    @Override
+                    public void error(String msg) {
+                        enableInputs();
+                    }
+                });
+            }
+        });
+
+    }
+
+    /**
+     * Refresh notf labels
+     */
+    private void refreshNotfs(){
+        uiUninstallNotf.textProperty().unbind();
+        uiUninstallNotf.setText("");
+        uiInstallNotf.textProperty().unbind();
+        uiInstallNotf.setText("");
+        uiDiagNotf.textProperty().unbind();
+        uiDiagNotf.setText("");
+    }
+
+    /**
+     * Disable all buttons
+     */
+    private void disableInputs(){
+        uiInstallBtn.setDisable(true);
+        uiStartDiagBtn.setDisable(true);
+        uiUninstallBtn.setDisable(true);
+        uiStaticDirPrefixInput.setDisable(true);
+    }
+
+    /**
+     * Enable all buttons
+     */
+    private void enableInputs(){
+        uiInstallBtn.setDisable(false);
+        uiStartDiagBtn.setDisable(false);
+        uiUninstallBtn.setDisable(false);
+        uiStaticDirPrefixInput.setDisable(false);
     }
 
 }

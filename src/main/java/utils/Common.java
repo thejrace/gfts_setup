@@ -25,25 +25,12 @@ public class Common {
 
     public static int FJSONObject, FJSONArray ;
     public static String STATIC_LOCATION = "";
-    public static String STATIC_LOCATION_SUFFIX = "/gpts/";
+    public static String STATIC_LOCATION_SUFFIX = "/gfts/";
 
     static {
         FJSONObject = 1;
         FJSONArray = 2;
     }
-
-    public static void checkStaticFileLocation(NoParamCallback cb ){
-        try {
-            if( !checkDirectory( STATIC_LOCATION ) ) createStaticDirectory();
-            if( !checkFile( STATIC_LOCATION + "api_user.json"  ) ) createFile(  "api_user", "{ \"init\" : true }" );
-            if( !checkFile( STATIC_LOCATION + "employee_groups.json"  ) ) createFile(  "employee_groups", "[]" );
-            if( !checkFile( STATIC_LOCATION + "permissions_template.json"  ) ) createFile(  "permissions_template", "[]");
-            cb.action();
-        } catch( Exception e ){
-            e.printStackTrace();
-        }
-    }
-
 
     public static boolean createFile(String name, String content){
         try {

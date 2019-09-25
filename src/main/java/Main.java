@@ -16,9 +16,9 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
+        // read config file
         try {
             String configFile = getParameters().getRaw().get(0);
-
             SharedConfig.DATA = new JSONObject(Common.readJSONFile(new File(configFile)));
         } catch( IndexOutOfBoundsException e ){
             System.out.println("Setup config missing!");

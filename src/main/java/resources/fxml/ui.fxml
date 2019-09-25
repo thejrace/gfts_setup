@@ -16,7 +16,7 @@
             <Image url="@glogo.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="14.0" text="PTS Setup" textFill="#cccccc">
+      <Label layoutX="14.0" layoutY="14.0" text="GFTS Setup" textFill="#cccccc">
          <font>
             <Font name="Consolas Bold" size="25.0" />
          </font>
