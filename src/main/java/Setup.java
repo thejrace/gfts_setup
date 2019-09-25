@@ -27,6 +27,7 @@ public class Setup extends ActionCommon{
      */
     public Setup( String installPath ){
         this.installPath = installPath + "/" + Common.STATIC_LOCATION_SUFFIX + "/";
+        System.out.println(installPath);
     }
 
     /**
@@ -71,7 +72,7 @@ public class Setup extends ActionCommon{
                     });
                     setStatusProp("Yapılandırma dosyaları oluşturuluyor");
                     if( !Common.checkFile(  installPath + "app_config.json"  ) ){
-                        if( !Common.createFile(  installPath + "app_config", "{ \"init\" : true }" ) ){
+                        if( !Common.createFile(  installPath + "app_config", "{ \"init\" : true, \"installDir\":\""+installPath+"\" }" ) ){
                             setStatusProp("app_config.json oluşturulamadı.");
                             callback.error("");
                             return;
