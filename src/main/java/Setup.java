@@ -10,6 +10,7 @@ import interfaces.ActionCallback;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import utils.APIRequest;
+import utils.Common;
 import utils.FileDownload;
 
 public class Setup extends ActionCommon{
@@ -17,37 +18,62 @@ public class Setup extends ActionCommon{
     private String installPath;
 
     public Setup( String installPath ){
-        this.installPath = installPath;
+        this.installPath = installPath + "gfts/";
     }
 
     public void action( ActionCallback callback ){
         Thread thread = new Thread(() -> {
 
-            // check paths, create if not exist
-            Thread setupThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    setStatusProp("Yapılandırma dosyaları indiriliyor..");
-                    JSONArray apiURLS = SharedConfig.DATA.getJSONArray("api_urls");
-                    for( int k = 0; k < apiURLS.length(); k++ ){
-                        try {
-                            // setup data contains;
-                            // - helper download url
-                            // - config json data
-                            // - application download url
-                            JSONObject setupData = new JSONObject(APIRequest.GET(apiURLS.getString(k)));
+            setStatusProp("Yapılandırma dosyaları indiriliyor..");
 
-                            System.out.println(setupData);
+            Common.createDirectory(installPath);
 
-                            break;
-                        } catch( Exception e ){
+            JSONArray apiURLS = SharedConfig.DATA.getJSONArray("api_urls");
+            for( int k = 0; k < apiURLS.length(); k++ ){
+                try {
+                    JSONObject setupData = new JSONObject(APIRequest.GET(apiURLS.getString(k)));
 
+                    setStatusProp("Son versiyon indiriliyor..");
+                    FileDownload.downloadFileFromUrl(setupData.getString("download_url"), installPath + "GFTS.exe", new ActionCallback() {
+                        @Override
+                        public void success(String msg) {
+
+                        }
+
+                        @Override
+                        public void error(String msg) {
+
+                        }
+                    });
+
+                    setStatusProp("Yardımcı dosyalar indiriliyor..");
+                    FileDownload.downloadFileFromUrl(setupData.getString("helper_download_url"), installPath + "gfts_update_helper.jar", new ActionCallback() {
+                        @Override
+                        public void success(String msg) {
+
+                        }
+
+                        @Override
+                        public void error(String msg) {
+
+                        }
+                    });
+
+                    setStatusProp("Yapılandırma dosyaları oluşturuluyor");
+                    if( !Common.checkFile(  installPath + "/gfts/app_config.json"  ) ){
+                        if( !Common.createFile(  "api_user", "{ \"init\" : true }" ) ){
+                            setStatusProp("app_config.json oluşturulamadı.");
+                            callback.error("");
+                            return;
                         }
                     }
 
+                    break;
+                } catch( Exception e ){
+
                 }
-            });
-            setupThread.setDaemon(true);
+            }
+
         });
         thread.setDaemon(true);
         thread.start();

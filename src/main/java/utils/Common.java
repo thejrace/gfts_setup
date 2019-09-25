@@ -119,6 +119,10 @@ public class Common {
         return new File(STATIC_LOCATION ).mkdirs();
     }
 
+    public static boolean createDirectory( String dir ){
+        return new File(dir).mkdirs();
+    }
+
     public static boolean writeStaticData( String file, String content ){
         try{
             PrintWriter writer = new PrintWriter( STATIC_LOCATION + file + ".json", "UTF-8");

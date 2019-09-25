@@ -5,6 +5,7 @@
  *      - Ahmet Ziya Kanbur
  *
  */
+import interfaces.ActionCallback;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -34,7 +35,18 @@ public class MainScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         uiInstallBtn.setOnMouseClicked( ev -> {
+            Setup setup = new Setup(uiStaticDirPrefixInput.getText());
+            setup.action(new ActionCallback() {
+                @Override
+                public void success(String msg) {
 
+                }
+
+                @Override
+                public void error(String msg) {
+
+                }
+            });
         });
 
     }
