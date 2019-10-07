@@ -73,6 +73,15 @@ public class Setup extends ActionCommon{
                         }
                     });
                     setStatusProp("Yapılandırma dosyaları oluşturuluyor");
+
+                    if( !Common.checkFile(  installPath + "settings.json"  ) ){
+                        if( !Common.createFile(  installPath + "settings", setupData.getJSONObject("settings").toString() ) ){
+                            setStatusProp("settings.json oluşturulamadı.");
+                            callback.error("");
+                            return;
+                        }
+                    }
+
                     if( !Common.checkFile(  installPath + "app_config.json"  ) ){
                         JSONObject appConfig = SharedConfig.DATA.getJSONObject("app_config");
                         appConfig.put("init", true);
