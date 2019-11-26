@@ -29,18 +29,18 @@ public class APIRequest {
             Connection.Response response = Jsoup.connect(url)
                     .method(Connection.Method.PUT)
                     .data("data", data)
-                    .header("Authorization", "Bearer " + API_TOKEN)
+                    //.header("Authorization", "Bearer " + API_TOKEN)
                     .header("Accept", "application/json")
                     .ignoreContentType(true)
                     .execute();
 
             return response.parse().text();
         } catch (HttpStatusException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("sendDataToAPI !!!!check API Token!!!!");
         } catch( IOException e ) {
             System.out.println("sendDataToAPI error!");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return "{}";
     }
@@ -54,7 +54,7 @@ public class APIRequest {
         try {
             Connection.Response response = Jsoup.connect(url)
                     .method(Connection.Method.GET)
-                    .header("Authorization", "Bearer " + API_TOKEN)
+                    //.header("Authorization", "Bearer " + API_TOKEN)
                     .header("Accept", "application/json")
                     .ignoreContentType(true)
                     .execute();
@@ -62,10 +62,10 @@ public class APIRequest {
             return response.parse().text();
         } catch (HttpStatusException e) {
             e.printStackTrace();
-            System.out.println("sendDataToAPI !!!!check API Token!!!!");
+//            System.out.println("sendDataToAPI !!!!check API Token!!!!");
         } catch( IOException e ) {
             System.out.println("sendDataToAPI error!");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return "{}";
     }
@@ -81,18 +81,18 @@ public class APIRequest {
             Connection.Response response = Jsoup.connect(url)
                     .method(Connection.Method.POST)
                     .data("data", data)
-                    .header("Authorization", "Bearer " + API_TOKEN)
+                    //.header("Authorization", "Bearer " + API_TOKEN)
                     .header("Accept", "application/json")
                     .ignoreContentType(true)
                     .execute();
 
             return response.parse().text();
         } catch (HttpStatusException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("sendDataToAPI !!!!check API Token!!!!");
         } catch( IOException e ) {
             System.out.println("sendDataToAPI error!");
-            e.printStackTrace();
+            ///e.printStackTrace();
         }
         return "{}";
     }
